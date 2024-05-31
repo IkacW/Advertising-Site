@@ -11,14 +11,11 @@ import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class AdvertisingApplication {
@@ -62,9 +59,11 @@ public class AdvertisingApplication {
 				for (int j = 0; j < 2; j++) {
                     users.add(userRepository.findById(faker.number().numberBetween(1, i)).orElse(null));
 				}
+				var desc = faker.lorem().paragraph() + " "
+						+ faker.lorem().paragraph() + " " + faker.lorem().paragraph();
 				var listing = Listing.builder()
 						.title(faker.job().title())
-						.description(faker.weather().description())
+						.description(desc)
 						.price(faker.number().numberBetween(200, 1000))
 						.category(category)
 						.createdAt(LocalDateTime.now())

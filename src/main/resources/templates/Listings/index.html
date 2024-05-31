@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="~{/fragments/fragmentRepo.html :: header}"><title>Advertise</title></head>
+<body>
+    <main>
+        <nav th:replace="~{fragments/fragmentRepo.html :: navigator}"></nav>
+
+        <div class="container">
+            <h2 class="text-white text-center my-3">Listings</h2>
+
+
+            <div th:each="listing: ${listings}" th:include="~{fragments/fragmentRepo.html :: listing-post(listing)}">
+            </div>
+        </div>
+    </main>
+
+
+    <script th:src="@{js/card-resize.js}" src="../../static/js/card-resize.js"></script>
+</body>
+</html>

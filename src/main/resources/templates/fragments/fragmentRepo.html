@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:fragment="header">
+        <meta charset="UTF-8">
+        <title>Fragments</title>
+        <!--    when you finish project, you should remove this, bcs this only allows you to
+        use custom css in preview, same stands for bootstrap cdn-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+        <link type="text/css" href="../../static/css/style.css" rel="stylesheet" />
+        <link th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" rel="stylesheet">
+        <link type="text/css" th:href="@{/css/style.css}" rel="stylesheet">
+
+    </head>
+    <body>
+        <main>
+            <div class="header" th:fragment="navigator">
+                <div class="container">
+                    <nav class="col-12 navbar navbar-custom border-bottom border-dark-subtle bg-dark d-flex flex-wrap justify-content-center justify-content-md-between align-items-center p-3 pb-md-1">
+                        <div class="col-12 col-md-3 mx-md-0 d-flex justify-content-center justify-content-lg-start">
+                            <!--            we need to insert here logo-->
+                            <a href="/" class="navbar-brand text-white m-0">
+                                <img th:src="@{/images/logo.png}" class="mx-md-0" src="../../static/images/logo.png" alt="logo" style="width: 80px; height: 80px">
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-3 py-2">
+                            <ul class="navbar-nav d-flex justify-content-around flex-row">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">Listings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center justify-content-lg-end align-items-center flex-column flex-sm-row">
+                            <button class="btn btn-outline-light mx-0 mb-2 mb-sm-0 me-sm-2 col-auto">Login</button>
+                            <button class="btn btn-danger col-auto">Sign-up</button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="container">
+                <div th:fragment="listing-post(listing)">
+                    <div class="card mb-3 card-block border-2 rounded-4 col-lg-10 mx-auto" >
+                        <div class="card-header rounded-top-4 d-flex justify-content-between bg-dark">
+                            <h4 class="mb-0 text-white" th:text="${listing.title}">Title</h4>
+                            <h4 class="mb-0 opacity-75 border-start border-2 ps-2 border-dark-subtle" th:text="${listing.price} + '$'"></h4>
+                        </div>
+                        <div class="card-body d-flex flex-row p-0">
+                            <div class="col-3 text-center py-2 align-self-center">
+                                <img th:src="@{/images/logo.png}" src="../../static/images/logo.png" alt="ad-image" class="w-75">
+                            </div>
+                            <div class="col-9 border-start border-2 border-dark-subtle px-0 d-flex flex-column justify-content-between">
+                                <div class="px-2 pt-2 position-relative">
+                                    <p class="h5 text-dark-emphasis">
+                                        Description:
+                                    </p>
+                                    <!--                        large needs more caracters-->
+                                    <div class="invisible description-data" th:attr="data-description=${listing.description}"></div>
+                                    <p class="card-description text-dark-emphasis" th:text="${listing.description}">
+                                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.
+                                    </p>
+                                    <p class="position-absolute top-0 end-0">
+                                        category
+                                    </p>
+                                </div>
+                                <div class="d-flex px-2 py-1 border-top border-2 border-dark-subtle justify-content-between align-items-center">
+                                    <p class="fs-6 text-dark-emphasis mb-0">
+                                        Author: <span th:text="${listing.authorDTO.firstName} + ' ' + ${listing.authorDTO.lastName}"></span>
+                                    </p>
+                                    <p class="fs-6 text-dark-emphasis mb-0">
+                                        <a href="#" class="btn btn-danger rounded-bottom-4 rounded-start-2 rounded-top-2    ">View Listing</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </body>
+</html>
