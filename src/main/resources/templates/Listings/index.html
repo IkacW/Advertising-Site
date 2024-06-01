@@ -11,6 +11,7 @@
 
             <div th:each="listing: ${listings}" th:include="~{fragments/fragmentRepo.html :: listing-post(listing)}">
             </div>
+            <nav th:replace="~{fragments/fragmentRepo :: page-navigation}"
         </div>
     </main>
 

@@ -3,6 +3,8 @@ package com.SpringWebProject.Advertising.Services;
 import com.SpringWebProject.Advertising.Mappers.ListingMapper;
 import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
 import com.SpringWebProject.Advertising.Repositories.ListingRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,12 @@ public class ListingService {
         this.listingMapper = listingMapper;
     }
 
-    public List<ListingPostDTO> getAllListings(){
-        return listingRepository.findAll()
+    public List<ListingPostDTO> getAllListings(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        List<ListingPostDTO> listings = listingRepository.findAll(pageable).getContent()
                 .stream()
                 .map(listingMapper::toListingPostDTO)
                 .toList();
+        return listings;
     }
 }

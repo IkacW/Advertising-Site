@@ -1,7 +1,6 @@
 package com.SpringWebProject.Advertising.Models;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;

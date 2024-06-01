@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,9 +18,16 @@ public class ListingWebController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/")
-    public String listing(Model model) {
-        final String url = "http://localhost:8080/api/listings";
+    @GetMapping("/listings")
+    public String listing(
+            Model model,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+//            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+//            @RequestParam(value = "direction", defaultValue = "ASC", required = false) String direction
+
+    ) {
+        final String url = "http://localhost:8080/api/listings?pageNo=" + pageNo + "&pageSize=" + pageSize;
         ResponseEntity<List<ListingPostDTO>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
