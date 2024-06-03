@@ -11,11 +11,13 @@
 
             <div th:each="listing: ${listings}" th:include="~{fragments/fragmentRepo.html :: listing-post(listing)}">
             </div>
-            <nav th:replace="~{fragments/fragmentRepo :: page-navigation}"
+            <nav th:replace="~{fragments/fragmentRepo :: page-navigation}"></nav>
         </div>
     </main>
 
 
     <script th:src="@{js/card-resize.js}" src="../../static/js/card-resize.js"></script>
+    <script th:src="@{js/pageNavigation.js}" src="../../static/js/pageNavigation.js"></script>
+    <script th:src="@{js/onLoadOrResize.js}" src="../../static/js/onLoadOrResize.js"></script>
 </body>
 </html>

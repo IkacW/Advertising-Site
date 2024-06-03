@@ -1,6 +1,7 @@
 package com.SpringWebProject.Advertising.Controllers;
 
 import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
+import com.SpringWebProject.Advertising.Models.DTOs.PaginatedResponseDTO;
 import com.SpringWebProject.Advertising.Services.ListingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class ListingRestController {
     }
 
     @GetMapping
-    public List<ListingPostDTO> getAllListings(
+    public PaginatedResponseDTO<ListingPostDTO> getAllListings(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
 //            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,

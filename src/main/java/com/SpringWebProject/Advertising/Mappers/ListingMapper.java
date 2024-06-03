@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ListingMapper {
+
     public ListingPostDTO toListingPostDTO(Listing listing) {
         return new ListingPostDTO(
                 listing.getTitle(),

@@ -1,6 +1,7 @@
 package com.SpringWebProject.Advertising.Controllers;
 
 import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
+import com.SpringWebProject.Advertising.Models.DTOs.PaginatedResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -28,14 +29,18 @@ public class ListingWebController {
 
     ) {
         final String url = "http://localhost:8080/api/listings?pageNo=" + pageNo + "&pageSize=" + pageSize;
-        ResponseEntity<List<ListingPostDTO>> response = restTemplate.exchange(
+        ResponseEntity<PaginatedResponseDTO<ListingPostDTO>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<ListingPostDTO>>() {}
+                new ParameterizedTypeReference<PaginatedResponseDTO<ListingPostDTO>>() {}
                 );
-        List<ListingPostDTO> listings = response.getBody();
-        model.addAttribute("listings", listings);
+        PaginatedResponseDTO<ListingPostDTO> paginatedResponseDTO = response.getBody();
+        System.out.println(paginatedResponseDTO.toString());
+        model.addAttribute("listings", paginatedResponseDTO.content());
+        model.addAttribute("pageNo", paginatedResponseDTO.pageNo());
+        model.addAttribute("pageSize", paginatedResponseDTO.pageSize());
+        model.addAttribute("totalPages", paginatedResponseDTO.totalPages());
         return "Listings/index";
     }
 }

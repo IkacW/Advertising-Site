@@ -2,8 +2,6 @@ function shortenDescription(description) {
     let charNumber = 0;
     let currentWidth = document.body.clientWidth;
 
-    console.log("Window width: " + window.innerWidth);
-
     if (currentWidth > 992) {
         charNumber = 350;
     } else if (currentWidth > 768) {
@@ -13,13 +11,10 @@ function shortenDescription(description) {
     } else if (currentWidth <= 576) {
         charNumber = 120;
     }
-    console.log("CharNumber: " + charNumber);
-    console.log("Description.lengtn: " + description.length);
     if (description.length > charNumber) {
         description = description.substring(0, charNumber);
         description = description.substring(0, Math.min(description.length, description.lastIndexOf(" ")));
         description = description + "...";
-        console.log(description);
     }
 
     return description;
@@ -28,7 +23,6 @@ function shortenDescription(description) {
 function setEqualHeight() {
     const cards = document.querySelectorAll('.card');
     let maxHeight = 0;
-    console.log(cards);
 
     // Reset heights
     cards.forEach(card => {
@@ -69,12 +63,12 @@ function setOrUpdateCardDescriptionHeight() {
     setEqualHeight();
 }
 
-// Run the function on page load
-window.addEventListener('load', () => {
-    setOrUpdateCardDescriptionHeight();
-});
-
-// Run the function on window resize
-window.addEventListener('resize', () => {
-    setOrUpdateCardDescriptionHeight();
-})
+// // Run the function on page load
+// window.addEventListener('load', () => {
+//     setOrUpdateCardDescriptionHeight();
+// });
+//
+// // Run the function on window resize
+// window.addEventListener('resize', () => {
+//     setOrUpdateCardDescriptionHeight();
+// })
