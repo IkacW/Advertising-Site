@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{fragments/fragmentRepo.html :: header}"><title>Advertise</title></head>
+    <body>
+        <div th:replace="~{fragments/fragmentRepo.html :: navigator(page = ' ')}"></div>
+
+        <div class="container">
+            <div th:replace="~{fragments/showListing.html :: show-listing(${listing})}"></div>
+        </div>
+
+
+        <script th:src="@{/js/manageDiscount.js}"></script>
+        <script th:src="@{/js/onLoadListingsShow.js}"></script>
+    </body>
+</html>

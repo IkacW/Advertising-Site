@@ -1,8 +1,10 @@
 package com.SpringWebProject.Advertising.Services;
 
 import com.SpringWebProject.Advertising.Mappers.ListingMapper;
+import com.SpringWebProject.Advertising.Mappers.UserMapper;
 import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
 import com.SpringWebProject.Advertising.Models.DTOs.PaginatedResponseDTO;
+import com.SpringWebProject.Advertising.Models.DTOs.UserAuthorDTO;
 import com.SpringWebProject.Advertising.Models.Listing;
 import com.SpringWebProject.Advertising.Repositories.ListingRepository;
 import org.springframework.data.domain.Page;
@@ -16,10 +18,12 @@ import java.util.List;
 public class ListingService {
     private final ListingRepository listingRepository;
     private final ListingMapper listingMapper;
+    private final UserMapper userMapper;
 
-    public ListingService(ListingRepository listingRepository, ListingMapper listingMapper) {
+    public ListingService(ListingRepository listingRepository, ListingMapper listingMapper, UserMapper userMapper) {
         this.listingRepository = listingRepository;
         this.listingMapper = listingMapper;
+        this.userMapper = userMapper;
     }
 
     public PaginatedResponseDTO<ListingPostDTO> getAllListings(int pageNo, int pageSize) {
@@ -27,7 +31,11 @@ public class ListingService {
         Page<Listing> page = listingRepository.findAll(pageable);
         List<ListingPostDTO> content = page.getContent()
                 .stream()
-                .map(listingMapper::toListingPostDTO)
+                .map(listing -> {
+                    UserAuthorDTO authorDTO = userMapper.toUserAuthorDTO(listing.getUser());
+
+                    return listingMapper.toListingPostDTO(listing, authorDTO);
+                })
                 .toList();
 
         return new PaginatedResponseDTO<>(
@@ -37,5 +45,10 @@ public class ListingService {
                 page.getTotalPages(),
                 page.getTotalElements()
         );
+    }
+
+    public ListingPostDTO getListingById(Long id) {
+        Listing listing = listingRepository.findById(id).orElse(null);
+        return listingMapper.toListingPostDTO(listing, userMapper.toUserAuthorDTO(listing.getUser()));
     }
 }

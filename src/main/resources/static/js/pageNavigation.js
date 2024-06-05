@@ -21,11 +21,10 @@ function setUpPageNavigation() {
 
     if(pageNo <= 2) {
         document.getElementById("hide-under-condition-1").hidden = true;
-    } else if(pageNo >= totalPages - 1) {
+    }
+    if(pageNo >= totalPages - 1) {
         document.getElementById("hide-under-condition-2").hidden = true;
     }
-}
 
-// window.addEventListener("DOMContentLoaded", () => {
-//     setUpPageNavigation();
-// });
+    console.log(pageNo + ">=" + totalPages);
+}

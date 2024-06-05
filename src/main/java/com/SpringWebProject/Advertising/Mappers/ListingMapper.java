@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ListingMapper {
 
-    public ListingPostDTO toListingPostDTO(Listing listing) {
+    public ListingPostDTO toListingPostDTO(
+            Listing listing,
+            UserAuthorDTO userAuthorDTO
+    ) {
+        if(listing == null) {
+            return null;
+        }
         return new ListingPostDTO(
+                listing.getId(),
                 listing.getTitle(),
                 listing.getDescription(),
                 listing.getPrice(),
-                new UserAuthorDTO(
-                        listing.getUser().getFirstName(),
-                        listing.getUser().getLastName()
-                )
+                listing.getDiscount(),
+                userAuthorDTO
         );
     }
 

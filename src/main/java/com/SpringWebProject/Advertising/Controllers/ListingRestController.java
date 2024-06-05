@@ -3,10 +3,7 @@ package com.SpringWebProject.Advertising.Controllers;
 import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
 import com.SpringWebProject.Advertising.Models.DTOs.PaginatedResponseDTO;
 import com.SpringWebProject.Advertising.Services.ListingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,10 @@ public class ListingRestController {
 //            @RequestParam(value = "direction", defaultValue = "ASC", required = false) String direction
     ){
         return listingService.getAllListings(pageNo, pageSize);
+    }
+
+    @GetMapping("/{id}")
+    public ListingPostDTO getListingById(@PathVariable("id") Long id){
+        return listingService.getListingById(id);
     }
 }

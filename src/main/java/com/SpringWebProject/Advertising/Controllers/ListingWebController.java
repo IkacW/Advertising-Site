@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,11 +37,32 @@ public class ListingWebController {
                 new ParameterizedTypeReference<PaginatedResponseDTO<ListingPostDTO>>() {}
                 );
         PaginatedResponseDTO<ListingPostDTO> paginatedResponseDTO = response.getBody();
-        System.out.println(paginatedResponseDTO.toString());
+
         model.addAttribute("listings", paginatedResponseDTO.content());
         model.addAttribute("pageNo", paginatedResponseDTO.pageNo());
         model.addAttribute("pageSize", paginatedResponseDTO.pageSize());
         model.addAttribute("totalPages", paginatedResponseDTO.totalPages());
         return "Listings/index";
+    }
+
+    @GetMapping("listings/{id}")
+    public String showListing(
+            @PathVariable("id") Integer id,
+            Model model
+    ) {
+        final String url = "http://localhost:8080/api/listings/" + id;
+
+        ResponseEntity<ListingPostDTO> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ListingPostDTO>() {}
+        );
+
+        ListingPostDTO listingPostDTO = response.getBody();
+
+        model.addAttribute("listing", listingPostDTO);
+
+        return "Listings/show";
     }
 }

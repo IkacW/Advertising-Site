@@ -13,7 +13,7 @@
     </head>
     <body>
         <main>
-            <div class="header" th:fragment="navigator">
+            <div class="header" th:fragment="navigator(page)">
                 <div class="container">
                     <nav class="col-12 navbar navbar-custom border-bottom border-dark-subtle bg-dark d-flex flex-wrap justify-content-center justify-content-md-between align-items-center p-3 pb-md-1">
                         <div class="col-12 col-md-3 mx-md-0 d-flex justify-content-center justify-content-lg-start">
@@ -25,13 +25,13 @@
                         <div class="col-12 col-md-3 py-2">
                             <ul class="navbar-nav d-flex justify-content-around flex-row">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">Home</a>
+                                    <a href="#" th:classappend="${page != 'home' ? '': 'active'}" class="nav-link">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Listings</a>
+                                    <a href="#" th:classappend="${page != 'listings' ? '' : 'active'}" class="nav-link">Listings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">About</a>
+                                    <a href="#" th:classappend="${page != 'about' ? '' : 'active'}" class="nav-link">About</a>
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +73,7 @@
                                         Author: <span th:text="${listing.authorDTO.firstName} + ' ' + ${listing.authorDTO.lastName}"></span>
                                     </p>
                                     <p class="fs-6 text-dark-emphasis mb-0">
-                                        <a href="#" class="btn btn-danger rounded-bottom-4 rounded-start-2 rounded-top-2    ">View Listing</a>
+                                        <a href="#" class="btn btn-danger rounded-bottom-4 rounded-start-2 rounded-top-2" th:href="@{/listings/(id = ${listing.id})}">View Listing</a>
                                     </p>
                                 </div>
                             </div>
@@ -86,23 +86,22 @@
                         <li class="page-item">
                             <a class="page-link" href="#" id="prev" tabindex="-1" th:href="@{/listings(pageNo=${pageNo - 1},pageSize=${pageSize})}">Prev</a>
                         </li>
-<!--                        <div class="d-flex flex-row">-->
-<!--                        </div>-->
+
                         <li class="page-item" th:if="${param.pageNo != null and pageNo gt 0}"><a class="page-link rounded-0" th:href="@{/listings(pageNo=0, pageSize=${pageSize})}">1</a></li>
                         <li class="page-item" th:if="${param.pageNo != null and pageNo gt 2}"><a class="page-link rounded-0 disabled" href="#">...</a></li>
 
                         <li class="page-item"><a class="page-link" id="hide-under-condition-1" th:href="@{/listings(pageNo=${pageNo - 1}, pageSize=${pageSize})}" href="#" th:text="${pageNo}">1</a></li>
                         <li class="page-item"><a class="page-link" href="#" th:text="${pageNo+1}">2</a></li>
                         <li class="page-item"><a class="page-link" id="hide-under-condition-2" th:href="@{/listings(pageNo=${pageNo+1}, pageSize=${pageSize})}" href="#" th:text="${pageNo+2}">3</a></li>
-<!--                        <div class="d-flex flex-row" th:if="${param.pageNo != null and pageNo lt totalPages - 2}">-->
-<!--                        </div>-->
-                        <li class="page-item" th:if="${param.pageNo != null and pageNo lt totalPages - 3}"><a class="page-link rounded-0 disabled" href="">...</a></li>
-                        <li class="page-item" th:if="${param.pageNo != null and pageNo lt totalPages - 1}"><a class="page-link rounded-0" th:href="@{/listings(pageNo=${totalPages - 1}, pageSize=${pageSize})}" th:text="${totalPages}">last</a></li>
+
+                        <li class="page-item" th:if="${pageNo != null and pageNo lt totalPages - 3}"><a class="page-link rounded-0 disabled" href="">...</a></li>
+                        <li class="page-item" th:if="${pageNo != null and pageNo lt totalPages - 1}"><a class="page-link rounded-0" th:href="@{/listings(pageNo=${totalPages - 1}, pageSize=${pageSize})}" th:text="${totalPages}">last</a></li>
                         <li class="page-item">
                             <a class="page-link" id="next" href="#" th:href="@{/listings(pageNo=${pageNo+1}, pageSize=${pageSize})}">Next</a>
                         </li>
                     </ul>
                 </nav>
+
             </div>
         </main>
     </body>

@@ -1,6 +1,37 @@
 /* Custom styles */
 body {
     background-color: #343a40;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.h1 {
+    font-size: 2.5rem;
+}
+
+.h2 {
+    font-size: 2rem;
+}
+
+.h3 {
+    font-size: 1.75rem;
+}
+
+.h4 {
+    font-size: 1.5rem;
+}
+
+.h5 {
+    font-size: 1.25rem;
+}
+
+.h6 {
+    font-size: 1rem;
 }
 
 .navbar-brand img {
@@ -22,7 +53,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-    color: white;
+    color: #fa3434;
 }
 
 .navbar-custom .navbar-nav .nav-link:hover {
@@ -47,10 +78,13 @@ body {
 }
 
 .active {
-    color: #cbd1d5 !important;
-    text-decoration-line: underline;
+    color: #9a2235 !important;
+    text-decoration-line: none;
     font-weight: bold;
     text-underline: #979797 !important;
+}
+.active:hover{
+
 }
 
 .bg-gray {
@@ -62,6 +96,28 @@ body {
     flex-wrap: wrap;
 }
 
-.listing {
+@media (max-width: 600px) {
+    .h1 {
+        font-size: 2rem;
+    }
 
+    .h2 {
+        font-size: 1.75rem;
+    }
+
+    .h3 {
+        font-size: 1.5rem;
+    }
+
+    .h4 {
+        font-size: 1.25rem;
+    }
+
+    .h5 {
+        font-size: 1.125rem;
+    }
+
+   .h6 {
+        font-size: 1rem; /* Ensure h6 is 16px on small screens */
+    }
 }
