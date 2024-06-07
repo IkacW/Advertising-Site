@@ -1,6 +1,6 @@
 package com.SpringWebProject.Advertising.Mappers;
 
-import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
+import com.SpringWebProject.Advertising.Models.DTOs.ListingDTO;
 import com.SpringWebProject.Advertising.Models.DTOs.UserAuthorDTO;
 import com.SpringWebProject.Advertising.Models.Listing;
 import org.springframework.stereotype.Service;
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ListingMapper {
 
-    public ListingPostDTO toListingPostDTO(
+    public ListingDTO toListingPostDTO(
             Listing listing,
             UserAuthorDTO userAuthorDTO
     ) {
         if(listing == null) {
             return null;
         }
-        return new ListingPostDTO(
+        return new ListingDTO(
                 listing.getId(),
                 listing.getTitle(),
                 listing.getDescription(),

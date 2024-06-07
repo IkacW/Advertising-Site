@@ -12,7 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.SpringVersion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,9 +32,21 @@ public class AdvertisingApplication {
 	) {
 		return args -> {
 			Faker faker = new Faker();
+			// Hard coded category db filler
+			ArrayList<String> categories = new ArrayList<>();
+			categories.add("Electronics");
+			categories.add("Food");
+			categories.add("Fashion");
+			categories.add("Furniture");
+			categories.add("Car");
+			categories.add("Books");
+			categories.add("Makeup");
+			categories.add("Makeup");
+			categories.add("Sports");
+			categories.add("Pets");
 			for (int i = 0; i < 10; i++) {
 				var category = Category.builder()
-						.name(faker.book().title())
+						.name(categories.get(i))
 						.build();
 				categoryRepository.save(category);
 

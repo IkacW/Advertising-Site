@@ -2,7 +2,7 @@ package com.SpringWebProject.Advertising.Services;
 
 import com.SpringWebProject.Advertising.Mappers.ListingMapper;
 import com.SpringWebProject.Advertising.Mappers.UserMapper;
-import com.SpringWebProject.Advertising.Models.DTOs.ListingPostDTO;
+import com.SpringWebProject.Advertising.Models.DTOs.ListingDTO;
 import com.SpringWebProject.Advertising.Models.DTOs.PaginatedResponseDTO;
 import com.SpringWebProject.Advertising.Models.DTOs.UserAuthorDTO;
 import com.SpringWebProject.Advertising.Models.Listing;
@@ -26,10 +26,10 @@ public class ListingService {
         this.userMapper = userMapper;
     }
 
-    public PaginatedResponseDTO<ListingPostDTO> getAllListings(int pageNo, int pageSize) {
+    public PaginatedResponseDTO<ListingDTO> getAllListings(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<Listing> page = listingRepository.findAll(pageable);
-        List<ListingPostDTO> content = page.getContent()
+        List<ListingDTO> content = page.getContent()
                 .stream()
                 .map(listing -> {
                     UserAuthorDTO authorDTO = userMapper.toUserAuthorDTO(listing.getUser());
@@ -47,8 +47,12 @@ public class ListingService {
         );
     }
 
-    public ListingPostDTO getListingById(Long id) {
+    public ListingDTO getListingById(Long id) {
         Listing listing = listingRepository.findById(id).orElse(null);
         return listingMapper.toListingPostDTO(listing, userMapper.toUserAuthorDTO(listing.getUser()));
+    }
+
+    public void create(Listing listing) {
+        listingRepository.save(listing);
     }
 }
